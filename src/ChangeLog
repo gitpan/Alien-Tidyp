@@ -1,0 +1,33 @@
+Changelog for libtidyp
+
+NEXT
+====================================
+Removed -Wextra compiler flag for GCC.  Older GCCs don't handle this,
+and it's really only for developer use anyway.
+
+Add a new "make check" target.
+
+Add a "tags" build target.
+
+Removed all the commented-out code I could find.
+
+
+0.99    Mon Feb 22 00:19:30 CST 2010
+====================================
+Distributed with a ./configure script.  No need to mess with autoconf.
+
+Removed RPM and MSVC support.  If anyone wants, they can ask for it
+and I'll add it back.  For now, I have no reason to think that they
+actually work.
+
+Removed the tab2space executable.
+
+Added a version number, and removed the Release Date functionality.
+A release date is not a usable version number.
+
+The function tidyVersion() has been added.
+
+The function tidyReleaseDate() has been removed.
+
+# vi: ft=text:
+# It's called ChangeLog, but I don't follow the GNU format.

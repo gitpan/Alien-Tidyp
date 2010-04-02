@@ -1,0 +1,37 @@
+#!/bin/sh
+
+for i in libtoolize glibtoolize
+do
+    ( $i --version) < /dev/null > /dev/null 2>&1 &&
+    LIBTOOLIZE=$i
+done
+
+if test -z "$LIBTOOLIZE" ; then
+    echo "You need libtoolize to continue"
+    exit 1;
+fi
+
+echo "Running: $LIBTOOLIZE --force --copy"
+$LIBTOOLIZE --force --copy
+
+echo 'Running: aclocal'
+aclocal
+
+echo 'Running: automake -a -c --foreign'
+automake -a -c --foreign
+
+echo 'Running: autoconf'
+autoconf -W all
+
+cat <<'HERE'
+
+If the above commands were successful you should now be able
+to build in the usual way:
+
+    $ ./configure --prefix=/usr
+    $ make
+    $ make install
+
+To get a list of configure options type: ./configure --help
+
+HERE
