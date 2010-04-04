@@ -5,6 +5,7 @@ inc/My/Builder/Unix.pm
 inc/My/Builder/Windows.pm
 lib/Alien/Tidyp.pm
 MANIFEST			This list of files
+META.yml
 README
 sharedir/share
 src/acgo
@@ -620,4 +621,3 @@ t/00-load.t
 t/config.t
 t/pod-coverage.t
 t/pod.t
-META.yml

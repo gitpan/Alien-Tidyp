@@ -4,6 +4,7 @@ author:
   - 'KMX, kmx@cpan.org'
 build_requires:
   ExtUtils::Command: 0
+  File::ShareDir: 0
   File::Spec: 0
   Test::More: 0
 configure_requires:
@@ -16,10 +17,12 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Alien-Tidyp
+no_index:
+  directory: src
 provides:
   Alien::Tidyp:
     file: lib/Alien/Tidyp.pm
-    version: v0.99.4
+    version: v0.99.5
 requires:
   File::ShareDir: 1.00
   File::Spec: 0
@@ -27,4 +30,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Alien-Tidyp
   license: http://dev.perl.org/licenses/
   repository: http://github.com/kmx/alien-tidyp
-version: v0.99.4
+version: v0.99.5
