@@ -33,6 +33,7 @@ src/include/Makefile.am
 src/include/platform.h
 src/include/tidyp.h
 src/include/tidypenum.h
+src/INSTALL
 src/Makefile.am
 src/README
 src/src/access.c
