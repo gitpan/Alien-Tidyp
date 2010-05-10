@@ -13,21 +13,21 @@ Alien::Tidyp - Build and make available tidyp library - L<http://www.tidyp.com>
 
 =cut
 
-our $VERSION = 'v1.02.1_01';
+our $VERSION = 'v1.2.1_2';
 
 =head1 VERSION
 
-Version v1.02.1 of Alien::Tidyp uses I<tidyp> sources v1.02.
+Version v1.2.1 of Alien::Tidyp uses I<tidyp> sources v1.02.
 
 =head1 SYNOPSIS
 
-Alien::Tidyp during its installation does the following:
+Alien::Tidyp installation comprise of:
 
 =over
 
-=item * Builds I<tidyp> binaries from source codes
+=item * Building I<tidyp> binaries from source codes
 
-=item * Installs binaries and dev files (*.h, *.a) into I<share> directory of Alien::Tidyp distribution
+=item * Installing binaries and dev files (*.h, *.a) into I<share> directory of Alien::Tidyp distribution
 
 =item * I<share> directory is usually something like this: /usr/lib/perl5/site_perl/5.10/auto/share/dist/Alien-Tidyp
 
@@ -47,9 +47,6 @@ like this:
       INC          => Alien::Tidyp->config('INC'),
       # + additional params
     );
-
-IMPORTANT NOTE: Building Alien::Tidyp requires GNU make utility as tidyp Makefile
-uses some features that can be incompatible with other non-GNU make tools.
     
 =head1 METHODS
 
@@ -80,8 +77,7 @@ the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Alien-Tidy
 
 =head1 LICENSE AND COPYRIGHT
 
-Please notice that the source code of tidyp library embedded in Alien::Tidyp
-(in 'src' subdirectory) has a different license than module itself.
+Please notice that the source code of tidyp library has a different license than module itself.
 
 =head2 Alien::Tidyp perl module
 
