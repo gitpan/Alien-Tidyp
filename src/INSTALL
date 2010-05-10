@@ -1,7 +1,0 @@
-Install as any standard package:
-
-    $ ./configure
-
-    $ ./make
-
-    $ sudo ./make install

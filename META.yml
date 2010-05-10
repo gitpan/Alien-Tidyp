@@ -3,12 +3,18 @@ abstract: 'Build and make available tidyp library - L<http://www.tidyp.com>'
 author:
   - 'KMX, kmx@cpan.org'
 build_requires:
+  Archive::Extract: 0
+  Digest::SHA: 0
   ExtUtils::Command: 0
+  File::Fetch: 0
   File::ShareDir: 0
   File::Spec: 0
   Test::More: 0
 configure_requires:
+  Archive::Extract: 0
+  Digest::SHA: 0
   ExtUtils::Command: 0
+  File::Fetch: 0
   File::Spec: 0
   Module::Build: 0.36
 generated_by: 'Module::Build version 0.3603'
@@ -23,7 +29,7 @@ no_index:
 provides:
   Alien::Tidyp:
     file: lib/Alien/Tidyp.pm
-    version: v1.2.1
+    version: v1.2.1_1
 requires:
   File::ShareDir: 1.00
   File::Spec: 0
@@ -31,4 +37,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Alien-Tidyp
   license: http://dev.perl.org/licenses/
   repository: http://github.com/kmx/alien-tidyp
-version: v1.2.1
+version: v1.2.1_1
