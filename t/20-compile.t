@@ -15,7 +15,7 @@ my $dir = tempdir( CLEANUP => 1 );
 my ($fs, $src) = tempfile( DIR => $dir, SUFFIX => '.c' );
 syswrite($fs, <<MARKER); # write test source code
 #include <tidyp.h>
-int func() { tidyVersion(); return 0; }
+int main() { tidyVersion(); return 0; }
 
 MARKER
 close($fs);
@@ -23,14 +23,8 @@ close($fs);
 my $i = Alien::Tidyp->config('INC');
 my $l = Alien::Tidyp->config('LIBS');
 
-open(my $olderr, '>&', STDERR);
-open(STDERR, '>', "output.stderr.txt");
-
 my $obj = $cb->compile( source => $src, extra_compiler_flags => $i );
 isnt( $obj, undef, 'Testing compilation' );
 
-my $lib = $cb->link( objects => $obj, extra_linker_flags => $l, module_name => 'test' );
-isnt( $lib, undef, 'Testing linking' );
-
-open(STDERR, '>&', $olderr);
-diag "STDERR from compile/link was rediercted to output.stderr.txt";
+my $exe = $cb->link_executable( objects => $obj, extra_linker_flags => $l );
+isnt( $exe, undef, 'Testing linking' );
