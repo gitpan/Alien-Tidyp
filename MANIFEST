@@ -7,6 +7,7 @@ lib/Alien/Tidyp.pm
 MANIFEST			This list of files
 META.yml
 patches/Makefile.mingw
+patches/Makefile.nmake
 README
 sharedir/share
 t/00-load.t
