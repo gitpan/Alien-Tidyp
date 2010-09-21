@@ -17,10 +17,12 @@ my $builder = $package->new(
   dist_author        => 'KMX, kmx@cpan.org',
   license            => 'perl',
   requires => {
+    'perl'              => '5.008',
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
   },
   configure_requires => {
+    'perl'              => '5.008',
     'File::Spec'        => 0,
     'File::Temp'        => 0,
     'ExtUtils::CBuilder'=> 0,
@@ -31,6 +33,7 @@ my $builder = $package->new(
     'Archive::Extract'  => 0,
   },
   build_requires => {
+    'perl'              => '5.008',
     'Test::More'        => 0,
     'File::ShareDir'    => 0,
     'File::Spec'        => 0,
@@ -64,6 +67,6 @@ if ($builder->check_installed_tidyp()) {
 unlink 'build_done';
 
 # set what tidyp tarball we are gonna use
-$builder->notes('tidyp_url', 'http://github.com/downloads/petdance/tidyp/tidyp-1.02.tar.gz');
-$builder->notes('tidyp_dir', 'tidyp-1.02'); # dirname inside the tarball
-$builder->notes('tidyp_sha1', 'f3a6c9a2ed18c14fbf7330760ed727a70558e466'); # SHA1 checksum of the tarball
+$builder->notes('tidyp_url', 'http://github.com/downloads/petdance/tidyp/tidyp-1.04.tar.gz');
+$builder->notes('tidyp_dir', 'tidyp-1.04'); # dirname inside the tarball
+$builder->notes('tidyp_sha1', '5d9050512259c3a67a2f48469555932e3a7b8bd0'); # SHA1 checksum of the tarball
