@@ -9,10 +9,26 @@ use File::Spec::Functions qw(catfile);
 use ExtUtils::Command;
 use File::Fetch;
 use File::Temp qw(tempdir tempfile);
+use File::Path qw(make_path remove_tree);
+use File::ShareDir;
 use Digest::SHA qw(sha1_hex);
 use Archive::Extract;
 use Config;
 use ExtUtils::Liblist;
+
+sub ACTION_install {
+  my $self = shift;
+  my $sharedir = eval {File::ShareDir::dist_dir('Alien-Tidyp')} || '';
+ 
+  if ( -d $sharedir ) {
+    print STDERR "Removing the old '$sharedir'\n";
+    remove_tree($sharedir);
+    make_path($sharedir);
+  }
+ 
+  return $self->SUPER::ACTION_install(@_);
+}
+
 
 sub ACTION_code {
   my $self = shift;
@@ -69,15 +85,15 @@ sub fetch_file {
   my $ff = File::Fetch->new(uri => $url);
   my $fn = catfile($download, $ff->file);
   if (-e $fn) {
-    print "Checking checksum for already existing '$fn'...\n";
+    print STDERR "Checking checksum for already existing '$fn'...\n";
     return 1 if $self->check_sha1sum($fn, $sha1sum);
     unlink $fn; #exists but wrong checksum
   }
-  print "Fetching '$url'...\n";
+  print STDERR "Fetching '$url'...\n";
   my $fullpath = $ff->fetch(to => $download);
   die "###ERROR### Unable to fetch '$url'" unless $fullpath;
   if (-e $fn) {
-    print "Checking checksum for '$fn'...\n";
+    print STDERR "Checking checksum for '$fn'...\n";
     return 1 if $self->check_sha1sum($fn, $sha1sum);
     die "###ERROR### Checksum failed '$fn'";
   }
@@ -119,18 +135,18 @@ int main() { tidyVersion(); return 0; }
 MARKER
   close($fs);
 
-  my $tdir = $ENV{TIDYP_DIR};
+  my $tdir = $ENV{TIDYP_DIR} || '';
   my @candidates;
   push(@candidates, { L => "$tdir/lib", I => "$tdir/include/tidyp" }) if -d $tdir;
   push(@candidates, { L => '/usr/local/lib', I => '/usr/local/include/tidyp' });
   push(@candidates, { L => '/usr/lib', I => '/usr/include/tidyp' });
   push(@candidates, { L => '', I => "$Config{usrinc}/tidyp" });
 
-  print "Gonna detect tidyp already installed on your system:\n";
+  print STDERR "Gonna detect tidyp already installed on your system:\n";
   foreach my $i (@candidates) {
     my $lflags = $i->{L} ? '-L'.$self->quote_literal($i->{L}).' -ltidyp' : '-ltidyp';
     my $cflags = $i->{I} ? '-I'.$self->quote_literal($i->{I}) : '';
-    print "- testing: $cflags $lflags ...\n";
+    print STDERR "- testing: $cflags $lflags ...\n";
     $lflags = ExtUtils::Liblist->ext($lflags) if($Config{make} =~ /nmake/ && $Config{cc} =~ /cl/); # MSVC compiler hack
     my ($obj, $exe);
     open(my $olderr, '>&', STDERR);
@@ -139,11 +155,11 @@ MARKER
     $exe = eval { $cb->link_executable( objects => $obj, extra_linker_flags => $lflags ) } if $obj;
     open(STDERR, '>&', $olderr);
     next unless $exe;
-    print "- TIDYP FOUND!\n";
+    print STDERR "- TIDYP FOUND!\n";
     $self->notes('installed_tidyp', { lflags => $lflags, cflags => $cflags } );
     return 1;
   }
-  print "- tidyp not found (we have to build it from sources)!\n";
+  print STDERR "- tidyp not found (we have to build it from sources)!\n";
   return 0;
 }
 
