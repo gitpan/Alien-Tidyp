@@ -6,6 +6,8 @@ inc/My/Builder/Windows.pm
 lib/Alien/Tidyp.pm
 MANIFEST			This list of files
 META.yml
+patches/config.guess
+patches/config.sub
 patches/Makefile.mingw
 patches/Makefile.nmake
 README

@@ -8,6 +8,7 @@ build_requires:
   ExtUtils::CBuilder: 0
   ExtUtils::Command: 0
   ExtUtils::Liblist: 0
+  File::Copy: 0
   File::Fetch: 0
   File::Path: 0
   File::ShareDir: 0
@@ -37,7 +38,7 @@ name: Alien-Tidyp
 provides:
   Alien::Tidyp:
     file: lib/Alien/Tidyp.pm
-    version: v1.4.4
+    version: v1.4.5
 requires:
   File::ShareDir: 1.00
   File::Spec: 0
@@ -46,4 +47,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Alien-Tidyp
   license: http://dev.perl.org/licenses/
   repository: http://github.com/kmx/alien-tidyp
-version: v1.4.4
+version: v1.4.5
