@@ -5,7 +5,7 @@ use warnings;
 use base 'My::Builder';
 
 use File::Spec::Functions qw(catdir catfile rel2abs);
-use File::Spec qw(devnull);
+use File::Spec;
 use Config;
 
 sub build_binaries {
@@ -26,7 +26,16 @@ sub build_binaries {
   my $run_configure = 'y';
   $run_configure = $self->prompt("Run ./configure again? (y/n)", "n") if (-f "config.status");
   if (lc($run_configure) eq 'y') {
-    my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir", 'CFLAGS=-fPIC');
+    my @cmd = ( './configure', '--enable-shared=no', '--disable-dependency-tracking', "--prefix=$prefixdir");
+    if ($^O eq 'darwin') {
+      #this is fix for https://rt.cpan.org/Ticket/Display.html?id=66382
+      push @cmd, "CFLAGS=$Config{ccflags} -fPIC";
+      push @cmd, "LDFLAGS=$Config{ldflags}";
+    }
+    else {
+      #FIXME maybe use %Config values for all UNIX systems (not now, maybe in the future)
+      push @cmd, 'CFLAGS=-fPIC';
+    }
     print STDERR "Configuring ...\n";
     print STDERR "(cmd: ".join(' ',@cmd).")\n";
     $self->do_system(@cmd) or die "###ERROR### [$?] during ./configure ... ";
